@@ -1,13 +1,16 @@
 services:
   pihole:
     image: pihole/pihole
+    network_mode: "host"  
     container_name: pihole
     environment:
       TZ: "Europe/Berlin"
-      WEBPASSWORD: ${PIHOLE_PASSWORD}
+      FTLCONF_webserver_api_password: ${PIHOLE_PASSWORD}
+      FTLCONF_webserver_port: 89
+        # WEBPASSWORD: ${PIHOLE_PASSWORD}
     ports:
-      - "53:53/tcp"
-      - "53:53/udp"
+      - "192.168.178.252:53:53/tcp"
+      - "192.168.178.252:53:53/udp"
       - "8888:80/tcp"        # Web-Interface
     volumes:
       - ./pihole/etc:/etc/pihole
